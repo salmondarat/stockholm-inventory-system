@@ -1,0 +1,52 @@
+[core]
+    # Ensure consistent line endings
+    autocrlf = input
+    
+    # Use UTF-8 encoding
+    quotepath = false
+    
+    # Editor configuration
+    editor = nano
+    
+[push]
+    # Only push current branch
+    default = simple
+    
+    # Automatically set up tracking
+    autoSetupRemote = true
+
+[pull]
+    # Use rebase by default for cleaner history
+    rebase = true
+
+[merge]
+    # Use VS Code as merge tool (adjust as needed)
+    tool = vscode
+    
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+
+[diff]
+    # Use VS Code as diff tool (adjust as needed)
+    tool = vscode
+    
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[branch]
+    # Automatically set up tracking when creating new branches
+    autosetupmerge = always
+    autosetuprebase = always
+
+[alias]
+    # Useful git aliases
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    ca = commit -a
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    visual = !gitk
+    graph = log --oneline --graph --decorate --all
+    pushup = push --set-upstream origin HEAD
