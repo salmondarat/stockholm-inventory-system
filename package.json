@@ -1,0 +1,35 @@
+{
+  "name": "@stockholm/monorepo",
+  "private": true,
+  "packageManager": "pnpm@7.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint .",
+    "lint-staged": "lint-staged",
+    "format": "prettier -w .",
+    "typecheck": "tsc -b",
+    "build": "pnpm -r --filter ./apps... run build",
+    "dev:website": "pnpm --filter @stockholm/website dev",
+    "dev:app": "pnpm --filter @stockholm/app dev",
+    "dev:api": "pnpm --filter @stockholm/api start:dev",
+    "dev:stack": "pnpm -w run dev:compose"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@playwright/test": "^1.46.0",
+    "@types/node": "^24.2.1",
+    "eslint": "^9.8.0",
+    "eslint-config-next": "^14.2.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.3.0",
+    "turbo": "^2.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}
