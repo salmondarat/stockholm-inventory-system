@@ -1,25 +1,37 @@
 // src/app/login/page.tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import api from "@/lib/api";
-import { saveToken } from "@/lib/auth";
-import Link from "next/link";
+import React, { useState } from 'react';
+import api from '@/lib/api';
+import { saveToken } from '@/lib/auth';
+import Link from 'next/link';
 
 export default function LoginPage() {
-  const [username, setU] = useState("");
-  const [password, setP] = useState("");
-  const [error, setErr] = useState("");
+  const [username, setU] = useState('');
+  const [password, setP] = useState('');
+  const [error, setErr] = useState('');
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setErr("");
+    setErr('');
     try {
-      const res = await api.post("/login", { username, password });
+      const res = await api.post('/login', { username, password });
       saveToken(res.data.token);
-      window.location.href = "/dashboard"; // redirect sederhana
-    } catch (err: any) {
-      setErr(err?.response?.data?.error || "Login failed");
+      window.location.href = '/dashboard'; // redirect sederhana
+    } catch (err: unknown) {
+      const errorMsg =
+        err &&
+        typeof err === 'object' &&
+        'response' in err &&
+        err.response &&
+        typeof err.response === 'object' &&
+        'data' in err.response &&
+        err.response.data &&
+        typeof err.response.data === 'object' &&
+        'error' in err.response.data
+          ? String(err.response.data.error)
+          : 'Login failed';
+      setErr(errorMsg);
     }
   }
 
@@ -46,7 +58,7 @@ export default function LoginPage() {
         </button>
       </form>
       <p className="mt-4 text-sm">
-        No account?{" "}
+        No account?{' '}
         <Link href="/register" className="text-blue-600 underline">
           Register
         </Link>

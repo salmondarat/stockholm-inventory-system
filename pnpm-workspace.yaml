@@ -1,0 +1,8 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  # optional: exclude folder yang bukan workspace
+  - '!infra/**'
+  - '!docs/**'
+  - '!**/dist'
+  - '!**/.next'

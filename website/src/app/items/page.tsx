@@ -1,13 +1,19 @@
 // src/app/items/page.tsx
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { getItems, createItem, deleteItem, updateItem } from "@/lib/authFetch";
+import React, { useEffect, useState } from 'react';
+import { getItems, createItem, deleteItem } from '@/lib/authFetch';
+
+interface Item {
+  id: number;
+  name: string;
+  quantity: number;
+}
 
 export default function ItemsPage() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ name: "", quantity: 0 });
+  const [form, setForm] = useState({ name: '', quantity: 0 });
 
   async function load() {
     setLoading(true);
@@ -25,7 +31,7 @@ export default function ItemsPage() {
   async function onCreate(e: React.FormEvent) {
     e.preventDefault();
     await createItem(form);
-    setForm({ name: "", quantity: 0 });
+    setForm({ name: '', quantity: 0 });
     load();
   }
 

@@ -1,0 +1,10 @@
+{
+  "name": "@stockholm/config",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "drizzle-orm": "^0.32.0",
+    "drizzle-kit": "^0.24.0",
+    "pg": "^8.12.0"
+  }
+}

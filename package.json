@@ -1,17 +1,20 @@
 {
   "name": "@stockholm/monorepo",
   "private": true,
-  "packageManager": "pnpm@7.0.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@9.12.0",
   "scripts": {
     "prepare": "husky",
     "lint": "eslint .",
     "lint-staged": "lint-staged",
     "format": "prettier -w .",
     "typecheck": "tsc -b",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:all": "pnpm run test:run && pnpm run test:e2e",
     "build": "pnpm -r --filter ./apps... run build",
     "dev:website": "pnpm --filter @stockholm/website dev",
     "dev:app": "pnpm --filter @stockholm/app dev",
@@ -21,15 +24,21 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.33.0",
     "@playwright/test": "^1.46.0",
     "@types/node": "^24.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
     "eslint": "^9.8.0",
     "eslint-config-next": "^14.2.0",
     "husky": "^9.0.0",
+    "jsdom": "^26.1.0",
     "lint-staged": "^15.5.2",
     "prettier": "^3.3.0",
     "turbo": "^2.0.0",
     "typescript": "^5.5.0",
+    "typescript-eslint": "^8.39.0",
     "vitest": "^2.0.0"
   }
 }

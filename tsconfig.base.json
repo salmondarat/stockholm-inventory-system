@@ -17,7 +17,8 @@
       "@stockholm/ui/*": ["packages/ui/src/*"],
       "@stockholm/types/*": ["packages/types/src/*"],
       "@stockholm/utils/*": ["packages/utils/src/*"],
-      "@stockholm/db/*": ["packages/db/src/*"]
+      "@stockholm/db/*": ["packages/db/src/*"],
+      "@/*": ["website/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", ".next", "build"]

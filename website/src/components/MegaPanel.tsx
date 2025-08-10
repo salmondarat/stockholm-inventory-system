@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { MENUS, type SiteMenu } from "./siteMenu";
-import type { ComponentType } from "react";
+import Link from 'next/link';
+import { type SiteMenu } from './siteMenu';
+import type { ComponentType } from 'react';
 import {
   Smartphone,
   QrCode,
@@ -23,7 +23,7 @@ import {
   MessageSquareQuote,
   GraduationCap,
   ArrowRight,
-} from "lucide-react";
+} from 'lucide-react';
 
 const ICONS: Record<
   string,
@@ -56,7 +56,7 @@ export function MegaPanel({ menu }: { menu: SiteMenu }) {
         {/* Left column */}
         <div className="w-1/3 pr-6">
           <div className="flex items-center gap-2 text-xl font-semibold">
-            {menu.lead.title}{" "}
+            {menu.lead.title}{' '}
             <ArrowRight size={18} className="text-foreground/60" />
           </div>
           <p className="mt-3 text-sm text-muted-foreground leading-relaxed">

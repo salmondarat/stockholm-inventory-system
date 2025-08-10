@@ -1,23 +1,35 @@
 // src/app/register/page.tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import api from "@/lib/api";
+import React, { useState } from 'react';
+import api from '@/lib/api';
 
 export default function RegisterPage() {
-  const [username, setU] = useState("");
-  const [password, setP] = useState("");
-  const [role, setR] = useState("user");
-  const [msg, setMsg] = useState("");
+  const [username, setU] = useState('');
+  const [password, setP] = useState('');
+  const [role, setR] = useState('user');
+  const [msg, setMsg] = useState('');
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMsg("");
+    setMsg('');
     try {
-      await api.post("/register", { username, password, role });
-      setMsg("Registered! You can login now.");
-    } catch (err: any) {
-      setMsg(err?.response?.data?.error || "Register failed");
+      await api.post('/register', { username, password, role });
+      setMsg('Registered! You can login now.');
+    } catch (err: unknown) {
+      const errorMsg =
+        err &&
+        typeof err === 'object' &&
+        'response' in err &&
+        err.response &&
+        typeof err.response === 'object' &&
+        'data' in err.response &&
+        err.response.data &&
+        typeof err.response.data === 'object' &&
+        'error' in err.response.data
+          ? String(err.response.data.error)
+          : 'Register failed';
+      setMsg(errorMsg);
     }
   }
 

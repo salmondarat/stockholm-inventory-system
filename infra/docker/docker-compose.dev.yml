@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: stockholm
+    ports: ['5432:5432']
+    volumes: [pg:/var/lib/postgresql/data]
+
+  redis:
+    image: redis:7
+    ports: ['6379:6379']
+
+  minio:
+    image: quay.io/minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio12345
+    ports: ['9000:9000', '9001:9001']
+    volumes: [minio:/data]
+
+  mailhog:
+    image: mailhog/mailhog
+    ports: ['1025:1025', '8025:8025']
+
+  caddy:
+    image: caddy:2
+    depends_on: [website, app, api]
+    ports: ['80:80', '443:443']
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+
+  website:
+    build: ../../apps/website
+    command: pnpm dev
+    env_file: ../../apps/website/.env.local
+    ports: ['3000:3000']
+
+  app:
+    build: ../../apps/app
+    command: pnpm dev
+    env_file: ../../apps/app/.env.local
+    ports: ['3001:3001']
+
+  api:
+    build: ../../apps/api
+    command: pnpm start:dev
+    env_file: ../../apps/api/.env
+    ports: ['4000:4000']
+    depends_on: [postgres, redis, minio]
+
+volumes:
+  pg: {}
+  minio: {}
